@@ -1,0 +1,55 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# Author Francisco Philip
+
+ENV['VAGRANT_DEFAULT_PROVIDER'] = 'docker'
+
+Vagrant.configure("2") do |config|
+
+    config.vm.box = "ubuntu/trusty64"
+
+    config.vm.hostname = "hadoop-docker"
+
+    config.vm.provision :docker
+    config.vm.provision :docker_compose
+
+
+    config.vm.provider "virtualbox" do |vb|
+        vb.memory = "4096"
+        vb.name = "hadoop-docker"
+    end
+
+    config.vm.provider "docker" do |docker, override|
+        docker.has_ssh = true
+        docker.build_dir = "."
+        docker.image = "fphilip/hadoop"
+        #docker.build_args = ["-t="]
+        docker.ports = ["8080:8080"]
+        docker.name = "hadoop"
+        docker.remains_running = true
+        #docker.volumes = ["/src//:/usr/local/src"]
+        #docker.env = {}
+      end
+
+  config.vm.network "private_network", ip: "192.168.33.21"
+
+    if Vagrant.has_plugin?("vagrant-proxyconf")
+        config.proxy.no_proxy = "localhost,127.0.0.1"
+    end
+
+    config.vm.network "forwarded_port", guest: 22, host: 2122
+
+
+    config.vm.synced_folder "../../../", "/home/vagrant/workspace/", id: "workspace", :mount_options => []
+
+    config.vm.provision :shell, inline: <<-SHELL
+
+      sed -ie '/^XKBLAYOUT=/s/".*"/"es"/' /etc/default/keyboard && udevadm trigger --subsystem-match=input --action=change
+      dpkg-reconfigure keyboard-configuration -f noninteractive
+
+      SHELL
+
+end
+
+

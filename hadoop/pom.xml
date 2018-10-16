@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>bcntec.learning.bigdata.hadoop</groupId>
+
+    <artifactId>hadoop</artifactId>
+    <packaging>pom</packaging>
+
+    <parent>
+        <groupId>bcntec.learning.bigdata</groupId>
+        <artifactId>bigdata</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <relativePath>../</relativePath>
+    </parent>
+
+    <modules>
+        <module>00-hdfs</module>
+        <module>01-mapred-wordcount</module>
+        <module>01-mapred-sales</module>
+        <module>02-partitioner-wordcount</module>
+        <module>02-combiners-wordcount</module>
+        <module>02-multiples-outputs</module>
+        <module>03-counters-samples</module>
+        <module>04-compression</module>
+        <module>04-mrtest</module>
+        <module>05-joins</module>
+    </modules>
+    
+    <dependencies>
+
+    </dependencies>
+
+</project>

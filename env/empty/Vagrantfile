@@ -1,0 +1,45 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# Author Francisco Philip
+
+Vagrant.configure("2") do |config|
+
+    config.vm.box = "ubuntu/trusty64"
+
+    config.vm.hostname = "empty"
+
+    config.vm.provider "virtualbox" do |vb|
+        vb.memory = "4096"
+        vb.name = "empty"
+
+    end
+
+
+  config.vm.network "private_network", ip: "192.168.33.10"
+
+    if Vagrant.has_plugin?("vagrant-proxyconf")
+        config.proxy.no_proxy = "localhost,127.0.0.1"
+    end
+
+    config.vm.network "forwarded_port", guest: 22, host: 2222
+
+
+    config.vm.synced_folder "../../", "/home/vagrant/workspace/", id: "workspace", :mount_options => []
+
+
+    config.vm.provision :shell, inline: <<-SHELL
+
+      sed -ie '/^XKBLAYOUT=/s/".*"/"es"/' /etc/default/keyboard && udevadm trigger --subsystem-match=input --action=change
+      dpkg-reconfigure keyboard-configuration -f noninteractive
+
+      add-apt-repository ppa:openjdk-r/ppa -y
+      apt-get update
+
+      #apt-get -y install apache2 openjdk-8-jdk
+
+      SHELL
+
+end
+
+
