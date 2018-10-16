@@ -1,7 +1,7 @@
 package bcntec.learning.bigdata.hadoop.blog.mapreduce.donation.secondarysort;
 
 import bcntec.learning.bigdata.hadoop.blog.data.writable.DonationWritable;
-import org.apache.hadoopuce.Partitioner;
+import org.apache.hadoop.mapreduce.Partitioner;
 
 public class NaturalKeyPartitioner extends Partitioner<CompositeKey, DonationWritable> {
 

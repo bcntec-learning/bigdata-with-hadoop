@@ -7,7 +7,6 @@
     <description>Compression</description>
 
     <parent>
-
         <groupId>bcntec.learning.bigdata</groupId>
         <artifactId>bigdata</artifactId>
         <version>1.0-SNAPSHOT</version>

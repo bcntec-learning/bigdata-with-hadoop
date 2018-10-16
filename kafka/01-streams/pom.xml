@@ -13,8 +13,11 @@
 
 
     <dependencies>
-
         
+        <dependency>
+            <groupId>bcntec.learning.bigdata.kafka</groupId>
+            <artifactId>kafka-utils</artifactId>
+        </dependency>
 
     </dependencies>
 

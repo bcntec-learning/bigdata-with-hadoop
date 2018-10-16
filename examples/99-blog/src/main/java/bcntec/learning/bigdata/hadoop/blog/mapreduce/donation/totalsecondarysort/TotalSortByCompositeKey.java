@@ -1,22 +1,22 @@
 package bcntec.learning.bigdata.hadoop.blog.mapreduce.donation.totalsecondarysort;
 
 import bcntec.learning.bigdata.hadoop.blog.data.writable.DonationWritable;
-import mapreduce.donation.secondarysort.CompositeKey;
-import mapreduce.donation.secondarysort.FullKeyComparator;
-import mapreduce.donation.secondarysort.NaturalKeyComparator;
+import bcntec.learning.bigdata.hadoop.blog.mapreduce.donation.secondarysort.CompositeKey;
+import bcntec.learning.bigdata.hadoop.blog.mapreduce.donation.secondarysort.FullKeyComparator;
+import bcntec.learning.bigdata.hadoop.blog.mapreduce.donation.secondarysort.NaturalKeyComparator;
 import org.apache.commons.lang.StringUtils;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.NullWritable;
 import org.apache.hadoop.io.Text;
-import org.apache.hadoopuce.Job;
-import org.apache.hadoopuce.Mapper;
-import org.apache.hadoopuce.Reducer;
-import org.apache.hadoopuce.lib.input.FileInputFormat;
-import org.apache.hadoopuce.lib.input.SequenceFileInputFormat;
-import org.apache.hadoopuce.lib.output.FileOutputFormat;
-import org.apache.hadoopuce.lib.partition.InputSampler;
-import org.apache.hadoopuce.lib.partition.TotalOrderPartitioner;
+import org.apache.hadoop.mapreduce.Job;
+import org.apache.hadoop.mapreduce.Mapper;
+import org.apache.hadoop.mapreduce.Reducer;
+import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
+import org.apache.hadoop.mapreduce.lib.input.SequenceFileInputFormat;
+import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
+import org.apache.hadoop.mapreduce.lib.partition.InputSampler;
+import org.apache.hadoop.mapreduce.lib.partition.TotalOrderPartitioner;
 
 import java.io.IOException;
 

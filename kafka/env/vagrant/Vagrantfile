@@ -1,49 +1,45 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+# Author Francisco Philip
 
 Vagrant.configure("2") do |config|
 
-  config.vm.box = "ubuntu/trusty64"
+    config.vm.box = "ubuntu/trusty64"
+
+    config.vm.hostname = "kafka"
+
+    config.vm.provider "virtualbox" do |vb|
+        vb.memory = "4096"
+        vb.name = "kafka"
+
+    end
 
 
-  config.vm.hostname = "kafka"
+  config.vm.network "private_network", ip: "192.168.33.41"
 
-  config.vm.network "forwarded_port", guest: 22, host: 9022
-  config.vm.network "forwarded_port", guest: 9092, host: 9092
+    if Vagrant.has_plugin?("vagrant-proxyconf")
+        config.proxy.no_proxy = "localhost,127.0.0.1"
+    end
 
-  config.vm.network "private_network", ip: "192.168.33.11"
-
-
-  config.vm.provider "virtualbox" do |vb|
-
-    vb.gui = false
-
-    # Customize the amount of memory on the VM:
-    vb.memory = "8192"
-    vb.cpus = 4
-  end
-
-  config.vm.provision "file", source: "../docker/2.0", destination: "$HOME/docker"
-
-  config.vm.provision "shell", inline: <<-SHELL
-
-    sed -ie '/^XKBLAYOUT=/s/".*"/"es"/' /etc/default/keyboard && udevadm trigger --subsystem-match=input --action=change
-    dpkg-reconfigure keyboard-configuration -f noninteractive
-
-    sudo apt-get install apt-transport-https ca-certificates
-    sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
-    echo "deb https://apt.dockerproject.org/repo ubuntu-trusty main" | sudo tee -a /etc/apt/sources.list.d/docker.list
-    sudo apt-get update -q
-    sudo apt-get install -y linux-image-extra-$(uname -r)
-    sudo apt-get install -y docker-engine
-    sudo usermod -aG docker vagrant
-    curl -L https://github.com/docker/compose/releases/download/1.22.0/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
-    chmod +x /usr/local/bin/docker-compose
-    curl -s https://raw.githubusercontent.com/ZZROTDesign/docker-clean/v2.0.4/docker-clean | sudo tee /usr/local/bin/docker-clean > /dev/null
-    sudo chmod +x /usr/local/bin/docker-clean
+    config.vm.network "forwarded_port", guest: 22, host: 4122
 
 
-    sudo docker pull blacktop/kafka
-    SHELL
+    config.vm.synced_folder "../../", "/home/vagrant/workspace/", id: "workspace", :mount_options => []
+
+    config.vm.provision :shell, inline: <<-SHELL
+
+      sed -ie '/^XKBLAYOUT=/s/".*"/"es"/' /etc/default/keyboard && udevadm trigger --subsystem-match=input --action=change
+      dpkg-reconfigure keyboard-configuration -f noninteractive
+
+      sudo apt-get install apt-transport-https ca-certificates
+
+      curl -s https://raw.githubusercontent.com/ZZROTDesign/docker-clean/v2.0.4/docker-clean | sudo tee /usr/local/bin/docker-clean > /dev/null
+      sudo chmod +x /usr/local/bin/docker-clean
+
+
+      SHELL
+
 end
+
+

@@ -1,16 +1,16 @@
 package bcntec.learning.bigdata.hadoop.blog.mapreduce.donation.totalsecondarysort;
 
 import bcntec.learning.bigdata.hadoop.blog.data.writable.DonationWritable;
-import mapreduce.donation.secondarysort.CompositeKey;
+import bcntec.learning.bigdata.hadoop.blog.mapreduce.donation.secondarysort.CompositeKey;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.io.NullWritable;
 import org.apache.hadoop.io.Text;
-import org.apache.hadoopuce.InputSplit;
-import org.apache.hadoopuce.Job;
-import org.apache.hadoopuce.RecordReader;
-import org.apache.hadoopuce.TaskAttemptContext;
-import org.apache.hadoopuce.lib.input.SequenceFileInputFormat;
-import org.apache.hadoopuce.lib.input.SequenceFileRecordReader;
+import org.apache.hadoop.mapreduce.InputSplit;
+import org.apache.hadoop.mapreduce.Job;
+import org.apache.hadoop.mapreduce.RecordReader;
+import org.apache.hadoop.mapreduce.TaskAttemptContext;
+import org.apache.hadoop.mapreduce.lib.input.SequenceFileInputFormat;
+import org.apache.hadoop.mapreduce.lib.input.SequenceFileRecordReader;
 
 import java.io.IOException;
 
