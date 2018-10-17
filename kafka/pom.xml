@@ -16,8 +16,8 @@
 
     <modules>
         <module>00-simple</module>
+        <module>00-twitter</module>
         <module>01-streams</module>
-        <module>01-twitter</module>
         <module>kafka-utils</module>
     </modules>
 

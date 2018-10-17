@@ -16,6 +16,7 @@
 
     <modules>
         <module>00-hdfs</module>
+        <module>00-hdfs-twitter</module>
         <module>01-mapred-wordcount</module>
         <module>01-mapred-sales</module>
         <module>02-partitioner-wordcount</module>

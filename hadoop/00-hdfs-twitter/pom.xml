@@ -3,21 +3,25 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>bcntec.learning.bigdata.hbase</groupId>
-    <artifactId>00-hbase-mapred</artifactId>
-    <description>HBase APIs</description>
+    <artifactId>00-hbase-twitter</artifactId>
 
     <parent>
-        <groupId>bcntec.learning.bigdata</groupId>
+        <groupId>bcntec.learning.bigdata.hadoop</groupId>
         <artifactId>hbase</artifactId>
         <version>1.0-SNAPSHOT</version>
         <relativePath>../</relativePath>
     </parent>
 
 
-
-
     <dependencies>
-        
+
+
+
+        <dependency>
+            <groupId>org.twitter4j</groupId>
+            <artifactId>twitter4j-stream</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>org.apache.hadoop</groupId>
             <artifactId>hadoop-client</artifactId>
@@ -39,6 +43,7 @@
             <artifactId>hbase-server</artifactId>
             <scope>provided</scope>
         </dependency>
+
     </dependencies>
 
 </project>
