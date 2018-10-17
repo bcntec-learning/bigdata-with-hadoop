@@ -1,9 +1,8 @@
 package bcntec.learning.bigdata.hbase;
 
+import com.google.protobuf.ServiceException;
 import org.apache.hadoop.conf.Configuration;
-import org.apache.hadoop.hbase.HColumnDescriptor;
-import org.apache.hadoop.hbase.HTableDescriptor;
-import org.apache.hadoop.hbase.TableName;
+import org.apache.hadoop.hbase.*;
 import org.apache.hadoop.hbase.client.*;
 import org.apache.hadoop.hbase.filter.*;
 import org.apache.hadoop.hbase.filter.CompareFilter.CompareOp;
@@ -14,7 +13,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
-public class HBaseClientOperations {
+public class HBaseSampleClientOperations {
     private final static byte[] cellData = Bytes.toBytes("cell_data");
 
     /**
@@ -45,6 +44,20 @@ public class HBaseClientOperations {
     private final byte[] qualifier1 = Bytes.toBytes("Qualifier1");
     private final byte[] qualifier2 = Bytes.toBytes("Qualifier2");
     private final byte[] qualifier3 = Bytes.toBytes("Qualifier3");
+
+
+    public static void main(String[] args) throws IOException, ServiceException {
+            new HBaseSampleClientOperations().connect();
+        }
+
+
+    private void connect() throws IOException, ServiceException {
+
+        Configuration config = HBaseUtils.createConfiguration();
+
+        HBaseSampleClientOperations HBaseClientOperations = new HBaseSampleClientOperations();
+        HBaseClientOperations.run(config);
+    }
 
     private void createTable(Admin admin) throws IOException {
         HTableDescriptor desc = new HTableDescriptor(table1);

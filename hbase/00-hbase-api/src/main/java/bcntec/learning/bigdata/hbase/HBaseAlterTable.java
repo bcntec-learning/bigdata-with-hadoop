@@ -1,5 +1,7 @@
-package bcntec.learning.bigdata.hbase.admin;
+package bcntec.learning.bigdata.hbase;
 
+import bcntec.learning.bigdata.hbase.HBaseUtils;
+import com.google.protobuf.ServiceException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
@@ -7,45 +9,22 @@ import org.apache.hadoop.hbase.*;
 import org.apache.hadoop.hbase.client.Admin;
 import org.apache.hadoop.hbase.client.Connection;
 import org.apache.hadoop.hbase.client.ConnectionFactory;
-import org.apache.hadoop.hbase.io.compress.Compression.Algorithm;
+import org.apache.hadoop.hbase.client.HBaseAdmin;
+import org.apache.hadoop.hbase.io.compress.Compression;
 
 import java.io.IOException;
 
 @Slf4j
-public class HBaseCreateTable {
+public class HBaseAlterTable {
 
-    public static void main(String[] args) throws IOException {
-        Configuration config = HBaseConfiguration.create();
-
-        //Add any necessary configuration files (hbase-site.xml, core-site.xml)
-        config.addResource(new Path(System.getenv("HBASE_CONF_DIR"), "hbase-site.xml"));
-        config.addResource(new Path(System.getenv("HADOOP_CONF_DIR"), "core-site.xml"));
-        createSchemaTables(config,"MY_FIRST_TABLE","DEFAULT_FAMILY");
-        modifySchema(config, "MY_FIRST_TABLE","DEFAULT_FAMILY","NEW_FAMILY");
-
-    }
-
-
-    public static void createOrOverwrite(Admin admin, HTableDescriptor table) throws IOException {
-        if (admin.tableExists(table.getTableName())) {
-            admin.disableTable(table.getTableName());
-            admin.deleteTable(table.getTableName());
+    public static void main(String[] args) throws IOException, ServiceException {
+        Configuration config = HBaseUtils.createConfiguration();
+        try (Connection connection = ConnectionFactory.createConnection(config)) {
+            modifySchema(config, "MY_FIRST_TABLE","DEFAULT_FAMILY","NEW_FAMILY");
         }
-        admin.createTable(table);
+
     }
 
-    public static void createSchemaTables(Configuration config, String tableName, String familyName) throws IOException {
-        try (Connection connection = ConnectionFactory.createConnection(config);
-             Admin admin = connection.getAdmin()) {
-
-            HTableDescriptor table = new HTableDescriptor(TableName.valueOf(tableName));
-            table.addFamily(new HColumnDescriptor(familyName).setCompressionType(Algorithm.NONE));
-
-            log.info("Creating table. ");
-            createOrOverwrite(admin, table);
-            log.info(" Done.");
-        }
-    }
 
     public static void modifySchema(Configuration config, String tableName, String familyName, String newFamilyName) throws IOException {
         try (Connection connection = ConnectionFactory.createConnection(config);
@@ -61,13 +40,13 @@ public class HBaseCreateTable {
 
             // Update existing table
             HColumnDescriptor newColumn = new HColumnDescriptor(newFamilyName);
-            newColumn.setCompactionCompressionType(Algorithm.GZ);
+            newColumn.setCompactionCompressionType(Compression.Algorithm.GZ);
             newColumn.setMaxVersions(HConstants.ALL_VERSIONS);
             admin.addColumn(tableName2, newColumn);
 
             // Update existing column family
             HColumnDescriptor existingColumn = new HColumnDescriptor(familyName);
-            existingColumn.setCompactionCompressionType(Algorithm.GZ);
+            existingColumn.setCompactionCompressionType(Compression.Algorithm.GZ);
             existingColumn.setMaxVersions(HConstants.ALL_VERSIONS);
             table.modifyFamily(existingColumn);
             admin.modifyTable(tableName2, table);
@@ -82,5 +61,4 @@ public class HBaseCreateTable {
             admin.deleteTable(tableName2);
         }
     }
-
 }
