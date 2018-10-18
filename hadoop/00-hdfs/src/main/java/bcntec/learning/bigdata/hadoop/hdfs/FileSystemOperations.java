@@ -37,7 +37,7 @@ public class FileSystemOperations {
         ugi.doAs((PrivilegedExceptionAction<Void>) () -> {
 
             FileSystemOperations client = new FileSystemOperations();
-            String hdfsPath = "hdfs://localhost:8020";
+            String hdfsPath = "hdfs://localhost:8088";
 
             Configuration conf = new Configuration();
 
