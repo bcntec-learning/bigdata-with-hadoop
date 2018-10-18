@@ -29,6 +29,7 @@ echo 'map-red directories'
 mkdir -p $HOME/workspace/mapred/system
 mkdir -p $HOME/workspace/mapred/local
 
+
 sudo chown  -R hadoop:hadoop /usr/local/hadoop
 sudo chown  -R hadoop:hadoop $HOME/workspace/
 
