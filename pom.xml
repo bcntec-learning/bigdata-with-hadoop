@@ -35,6 +35,7 @@
         <module>kafka</module>
         <module>hive</module>
         <module>pig</module>
+        <module>flume</module>
         <module>examples/99-blog</module>
         <module>excercises/99-excersices</module>
     </modules>
