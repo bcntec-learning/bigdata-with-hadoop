@@ -14,7 +14,7 @@ Vagrant.configure("2") do |config|
         vb.name = "docker"
 
         config.vm.provision :docker
-        config.vm.provision :docker_compose
+     #   config.vm.provision :docker_compose
     end
 
 
