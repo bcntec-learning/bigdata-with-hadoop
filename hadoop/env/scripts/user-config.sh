@@ -20,7 +20,7 @@ chmod go-w $HOME $HOME/.ssh
 chmod 600 $HOME/.ssh/authorized_keys
 chown `whoami` $HOME/.ssh/authorized_keys
 
-echo 'map-red directories'
+echo 'dfs directories'
 mkdir -p $HOME/workspace/dfs/name
 mkdir -p $HOME/workspace/dfs/data
 
