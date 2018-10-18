@@ -21,6 +21,6 @@ hdfs namenode -format
 
 start-dfs.sh
 
-sleep 4
+sleep 10
 
 start-yarn.sh
