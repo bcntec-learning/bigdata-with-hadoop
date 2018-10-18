@@ -1,4 +1,4 @@
-package bcntec.learning.bigdata.kafka.streams;
+package bcntec.learning.bigdata.kafka.twitter.producer;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.Serdes;
@@ -31,7 +31,7 @@ import java.util.concurrent.CountDownLatch;
  * bin/kafka-console-producer.sh). Otherwise you won't see any data arriving in the output topic.
  *
  */
-public class KafkaWordCountProcessor {
+public class KafkaTwitterProcessor {
 
     static class KafkaWordCountProcessorSupplier implements ProcessorSupplier<String, String> {
 
@@ -97,7 +97,7 @@ public class KafkaWordCountProcessor {
 
         Topology builder = new Topology();
 
-        builder.addSource("Source", "test");
+        builder.addSource("Source", "bigdata.twitter.tags.live");
 
         builder.addProcessor("Process", new KafkaWordCountProcessorSupplier(), "Source");
         builder.addStateStore(Stores.keyValueStoreBuilder(
@@ -106,13 +106,13 @@ public class KafkaWordCountProcessor {
                 Serdes.Integer()),
                 "Process");
 
-        builder.addSink("Sink", "test2", "Process");
+        builder.addSink("Sink", "bigdata.twitter.tags.live-agg", "Process");
 
         final KafkaStreams streams = new KafkaStreams(builder, props);
         final CountDownLatch latch = new CountDownLatch(1);
 
         // attach shutdown handler to catch control-c
-        Runtime.getRuntime().addShutdownHook(new Thread("streams-wordcount-shutdown-hook") {
+        Runtime.getRuntime().addShutdownHook(new Thread("bigdata.twitter.tags.live-agg-shutdown-hook") {
             @Override
             public void run() {
                 streams.close();

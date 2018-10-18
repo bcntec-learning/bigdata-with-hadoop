@@ -35,7 +35,6 @@ public class KafkaSimpleProducer {
         do {
             String l = sc.nextLine();
             Future<RecordMetadata> ret = producer.send(new ProducerRecord<>(topicName, Integer.toString(j++),l));
-            System.out.println("sent.. "+ret.get().offset());
         }while (true);
     }
 }
