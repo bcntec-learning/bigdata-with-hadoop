@@ -2,7 +2,9 @@
 
 
 
-. env.sh
+if [  -f env.sh ]; then
+    . env.sh
+fi
 
 
 
