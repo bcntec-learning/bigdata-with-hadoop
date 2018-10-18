@@ -6,7 +6,7 @@
 
     <parent>
         <groupId>bcntec.learning.bigdata.hadoop</groupId>
-        <artifactId>hbase</artifactId>
+        <artifactId>hadoop</artifactId>
         <version>1.0-SNAPSHOT</version>
         <relativePath>../</relativePath>
     </parent>

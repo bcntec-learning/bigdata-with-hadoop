@@ -3,9 +3,6 @@ package bcntec.learning.bigdata.hadoop.mapred.partitioner1;
 import java.io.IOException;
 import java.util.Arrays;
 
-import bcntec.learning.bigdata.hadoop.mapred.wordcount.WordCounter;
-import bcntec.learning.bigdata.hadoop.mapred.wordcount.WordCounterMap;
-import bcntec.learning.bigdata.hadoop.mapred.wordcount.WorldCounterReduce;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.LongWritable;

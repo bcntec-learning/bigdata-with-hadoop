@@ -14,10 +14,10 @@
         <relativePath>../</relativePath>
     </parent>
 
-    <modules>
+    <!--modules>
         <module>00-simple</module>
         <module>00-udf</module>
-    </modules>
+    </modules-->
 
     <dependencies>
     </dependencies>

@@ -24,9 +24,9 @@ public class KafkaLineSplit {
 
         final StreamsBuilder builder = new StreamsBuilder();
 
-        KStream<String, String> source = builder.stream("test-line-input");
+        KStream<String, String> source = builder.stream("test");
         source.flatMapValues(value -> Arrays.asList(value.split("\\W+")))
-                .to("test-splitted-output");
+                .to("test-splitted");
 
         final Topology topology = builder.build();
         final KafkaStreams streams = new KafkaStreams(topology, props);

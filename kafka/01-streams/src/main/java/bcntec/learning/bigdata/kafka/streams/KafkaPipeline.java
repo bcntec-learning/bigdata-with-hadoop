@@ -5,7 +5,7 @@ import org.apache.kafka.streams.KafkaStreams;
 import org.apache.kafka.streams.StreamsBuilder;
 import org.apache.kafka.streams.StreamsConfig;
 import org.apache.kafka.streams.Topology;
- 
+
 import java.util.Properties;
 import java.util.concurrent.CountDownLatch;
  
