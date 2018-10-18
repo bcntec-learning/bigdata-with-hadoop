@@ -12,16 +12,7 @@ fi
 su - hadoop
 
 cat <<EOT >>  $HOME/.bashrc
-export JAVA_HOME=$(dirname $(dirname $(readlink -f $(which javac))))
-export HADOOP_VERSION=\${HADOOP_VERSION}
-export HADOOP_HOME=/usr/local/hadoop
-export HADOOP_CONF_DIR=/usr/local/hadoop/etc/hadoop
 export PATH=\$PATH:\$HADOOP_HOME/bin:\$HADOOP_HOME/sbin
-export HADOOP_MAPRED_HOME=\${HADOOP_HOME}
-export HADOOP_COMMON_HOME=\${HADOOP_HOME}
-export HADOOP_HDFS_HOME=\${HADOOP_HOME}
-export YARN_HOME=\${HADOOP_HOME}
-
 EOT
 
 echo -e  'y\n'|ssh-keygen -q -t rsa -N "" -f ~/.ssh/id_rsa
