@@ -24,14 +24,16 @@ Vagrant.configure("2") do |config|
     config.vm.network "forwarded_port", guest: 22, host: 2022
     config.vm.network "forwarded_port", guest: 50070, host: 50070
     config.vm.network "forwarded_port", guest: 50075, host: 50075
+    config.vm.network "forwarded_port", guest: 8020, host: 8020
     config.vm.network "forwarded_port", guest: 8088, host: 8088
     config.vm.network "forwarded_port", guest: 8042, host: 8042
     config.vm.network "forwarded_port", guest: 19888, host: 19888
 
 
-    config.vm.synced_folder "../../", "/home/vagrant/workspace/", id: "workspace", :mount_options => []
+    config.vm.synced_folder "../../../", "/sources/", id: "sources", :mount_options => []
 
-    config.vm.provision "file", source: "../resources", destination: "$HOME/install-resources"
+    config.vm.provision "file", source: "../resources", destination: "/home/vagrant/install/"
+    config.vm.provision "file", source: "../scripts/", destination: "/home/vagrant/install/"
 
     config.vm.provision :shell, inline: <<-SHELL
 
@@ -41,13 +43,27 @@ Vagrant.configure("2") do |config|
 
       add-apt-repository ppa:openjdk-r/ppa -y
       apt-get update
-
-
-      echo "\n"
-      echo "\n"
-      echo "---------- Installing Java 8 ------------\n"
       apt-get -y install apache2 openjdk-8-jdk
       rm -rf /var/lib/apt/lists/*
+
+      export HADOOP_VERSION=2.9.1
+      export HADOOP_HOME=/usr/local/hadoop
+      export JAVA_HOME=$(dirname $(dirname $(readlink -f $(which javac))))
+
+      bash /home/vagrant/install/scripts/setup.sh
+
+      echo "export HADOOP_VERSION='${HADOOP_VERSION}'" >> /etc/profile.d/HADOOP_VERSION.sh
+      echo "export HADOOP_HOME='${HADOOP_HOME}'" >> /etc/profile.d/HADOOP_HOME.sh
+      echo "export HADOOP_CONF_DIR='${HADOOP_HOME}/etc/hadoop'" >> /etc/profile.d/HADOOP_CONF_DIR.sh
+      echo "export HADOOP_MAPRED_HOME='${HADOOP_HOME}'" >> /etc/profile.d/HADOOP_MAPRED_HOME.sh
+      echo "export HADOOP_COMMON_HOME='${HADOOP_HOME}'" >> /etc/profile.d/HADOOP_COMMON_HOME.sh
+      echo "export HADOOP_HDFS_HOME='${HADOOP_HOME}'" >> /etc/profile.d/HADOOP_HDFS_HOME.sh
+      echo "export YARN_HOME='${HADOOP_HOME}'" >> /etc/profile.d/YARN_HOME.sh
+      echo "export JAVA_HOME='${JAVA_HOME}'" >> /etc/profile.d/JAVA_HOME.sh
+      
+
+      mkdir -p  /home/hadoop/
+      mv /home/vagrant/install/scripts/user-config.sh /home/hadoop/
 
     SHELL
 

@@ -33,7 +33,8 @@
         <module>hadoop</module>
         <module>hbase</module>
         <module>kafka</module>
-        <module>spark</module>
+        <module>hive</module>
+        <module>pig</module>
         <module>examples/99-blog</module>
         <module>excercises/99-excersices</module>
     </modules>

@@ -2,7 +2,8 @@ FROM ubuntu:trusty
 
 
 
-ARG HADOOP_VERSION=2.9.1
+ENV HADOOP_VERSION=2.9.1
+ENV HADOOP_HOME=/usr/local/hadoop
 
 ARG TAR=hadoop-$HADOOP_VERSION.tar.gz
 

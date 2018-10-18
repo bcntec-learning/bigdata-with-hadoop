@@ -25,9 +25,11 @@ Vagrant.configure("2") do |config|
     end
 
     config.vm.network "forwarded_port", guest: 22, host: 4222
+    config.vm.network "forwarded_port", guest: 9092, host: 9092
+    config.vm.network "forwarded_port", guest: 2181, host: 2181
 
 
-    config.vm.synced_folder "../../", "/home/vagrant/workspace/", id: "workspace", :mount_options => []
+    config.vm.synced_folder "../../../", "/sources/", id: "sources", :mount_options => []
 
     config.vm.provision :shell, inline: <<-SHELL
 

@@ -9,7 +9,11 @@ Este proyecto Vagrant es base para las pruebas de instalación y ejercicios del 
 3.  Ejecutar ```vagrant plugin install vagrant-vbguest```  para plugin de vboxsf.
 3.  Ejecutar ```vagrant up```  para crear la maquina virtual.
 4.  Ejecutar ```vagrant ssh``` para ingresar en nuesta maquina virtual.
-5.  Ejecutar ```vagrant destroy``` cuando quieras destruir y deshacerte de la máquina virtual.
+5.  Ejecutar ```su - hadoop ``` para cambar a el usario ```hadoop``` (recuerde que la contraseña es ```H4d00p```).
+6.  Ejecutar ```sh user-config.sh``` para configurar el usario y sus claves.
+
+### Eliminacion de maquina virtual
+1.  Ejecutar ```vagrant destroy``` cuando quieras destruir y deshacerte de la máquina virtual.
 
 
 
@@ -33,10 +37,7 @@ sudo mount -t vboxsf hadoop $HOME/share
 
 
 #### Scritps
-```unpack.sh``` descarga y desempaqueta hadoop
-```setup.h``` configura OS
-```user-create.sh``` crea el usuario hadoop
-```user-config.sh``` configura el usuario hadoop
+
 
 
 
