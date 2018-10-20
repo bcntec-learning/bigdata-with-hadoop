@@ -20,7 +20,7 @@ public class HBaseUtils {
 
         config.addResource(new Path(path));
 
-        HBaseAdmin.checkHBaseAvailable(config);
+        //HBaseAdmin.checkHBaseAvailable(config);
         return config;
 
     }

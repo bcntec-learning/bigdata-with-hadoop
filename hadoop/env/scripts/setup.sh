@@ -11,6 +11,7 @@ if [[ -z $HADOOP_VERSION ]]; then
     echo "HADOOP_VERSION required"
     exit
 fi
+
 if [[ -z HADOOP_HOME ]]; then
     echo "HADOOP_HOME required"
     exit

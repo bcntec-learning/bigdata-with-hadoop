@@ -33,12 +33,12 @@ public class KafkaWordCount {
     public static void main(final String[] args) throws Exception {
         Properties props = new Properties();
         props.put(StreamsConfig.APPLICATION_ID_CONFIG, "wordcount-application");
-        props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "192.168.0.100:9092");
+        props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG,System.getProperty("bootstrap.servers"));
         props.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass());
         props.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serdes.String().getClass());
 
         StreamsBuilder builder = new StreamsBuilder();
-        KStream<String, String> textLines = builder.stream("test-line-input");
+        KStream<String, String> textLines = builder.stream("test");
         KTable<String, Long> wordCounts = textLines
                 .mapValues((ValueMapper<String, String>) String::toLowerCase)
                 .flatMapValues(lowerCaseText -> Arrays.asList(lowerCaseText.toLowerCase().split("\\W+")))
@@ -46,7 +46,7 @@ public class KafkaWordCount {
                 .groupByKey() //
                 .count(Materialized.as("count"));
 
-        wordCounts.toStream().to("test-wordcount-output", Produced.with(Serdes.String(), Serdes.Long()));
+        wordCounts.toStream().to("test-count", Produced.with(Serdes.String(), Serdes.Long()));
 
         KafkaStreams streams = new KafkaStreams(builder.build(), props);
         streams.start();

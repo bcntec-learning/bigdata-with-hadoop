@@ -4,8 +4,6 @@ Este proyecto Vagrant es base para las pruebas de instalación y ejercicios del 
 
 # Comenzamos
 
-1.  [Descargar e instalar VirtualBox (si es necesario).](https://www.virtualbox.org/wiki/Downloads)
-2.  [Descargar e instalar Vagrant (si es necesario).](http://www.vagrantup.com/downloads.html)
 3.  Ejecutar ```vagrant plugin install vagrant-vbguest```  para plugin de vboxsf.
 3.  Ejecutar ```vagrant up```  para crear la maquina virtual.
 4.  Ejecutar ```vagrant ssh``` para ingresar en nuesta maquina virtual.

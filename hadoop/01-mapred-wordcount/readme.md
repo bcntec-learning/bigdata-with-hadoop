@@ -1,6 +1,6 @@
 
 #####Ir al directorio
-```cd /home/hadoop/share/01-mapred-wordcount```
+```cd /sources/hadoop/01-mapred-wordcount```
 
 #####Construimos de trabajo directorio
 ```hadoop fs -mkdir /ejemplos/```
